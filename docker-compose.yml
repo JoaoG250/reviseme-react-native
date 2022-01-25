@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:13.2
+    env_file:
+      - ./dotenv/db.env
+
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    image: esdm-api:latest
+    env_file:
+      - ./dotenv/api.env
+    command: development
+    volumes:
+      - ./api:/home/python/esdm/api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
