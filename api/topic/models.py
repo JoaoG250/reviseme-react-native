@@ -24,7 +24,7 @@ class Topic(TimeStampedModel):
     )
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
-    image = models.ImageField(upload_to=file_upload_path)
+    image = models.ImageField(upload_to=file_upload_path, null=True)
     active = models.BooleanField(default=True)
 
 
@@ -32,6 +32,12 @@ class TopicFile(TimeStampedModel):
     topic = models.ForeignKey(to=Topic, on_delete=models.CASCADE, related_name="files")
     file = models.FileField(upload_to=file_upload_path)
     file_type = models.CharField(max_length=10, choices=CHOICES_TOPIC_FILE_TYPE)
+
+
+class TopicLink(TimeStampedModel):
+    topic = models.ForeignKey(to=Topic, on_delete=models.CASCADE, related_name="links")
+    url = models.URLField()
+    url_type = models.CharField(max_length=10, choices=CHOICES_TOPIC_FILE_TYPE)
 
 
 class TopicRevision(TimeStampedModel):

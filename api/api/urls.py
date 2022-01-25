@@ -16,6 +16,7 @@ router = routers.DefaultRouter()
 router.register(r"subjects", subject_views.SubjectViewSet)
 router.register(r"topics", topic_views.TopicViewSet)
 router.register(r"topic-files", topic_views.TopicFileViewSet)
+router.register(r"topic-links", topic_views.TopicLinkViewSet)
 router.register(r"topic-revisions", topic_views.TopicRevisionViewSet)
 
 URL = typing.Union[URLPattern, URLResolver]
