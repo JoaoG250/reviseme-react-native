@@ -10,7 +10,7 @@ jobs:
       db:
         image: postgres:13.2
         env:
-          POSTGRES_DB: esdm
+          POSTGRES_DB: reviseme
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:

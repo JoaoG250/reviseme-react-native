@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-work_dir="/home/python/esdm/api"
+work_dir="/home/python/reviseme/api"
 h_spacer="========="
 e_spacer=":::::::::"
 a_spacer="---------"

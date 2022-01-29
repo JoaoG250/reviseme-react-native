@@ -2,7 +2,7 @@ FROM python:3.8 as base
 
 ARG UID=1000
 ARG USER=python
-ARG WORKDIR=/home/${USER}/esdm/api
+ARG WORKDIR=/home/${USER}/reviseme/api
 
 # Create user
 RUN useradd -l -m -s /bin/bash -N -u ${UID} ${USER}

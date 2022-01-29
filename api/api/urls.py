@@ -23,8 +23,8 @@ URL = typing.Union[URLPattern, URLResolver]
 URLList = typing.List[URL]
 
 schema_view = get_schema_view(
-    title="ESDM",
-    description="API do sistema ESDM.",
+    title="Revise.me",
+    description="Revise.me API documentation",
     version="1.0.0",
 )
 

@@ -10,12 +10,12 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    image: esdm-api:latest
+    image: reviseme-api:latest
     env_file:
       - ./dotenv/api.env
     command: development
     volumes:
-      - ./api:/home/python/esdm/api
+      - ./api:/home/python/reviseme/api
     ports:
       - "8000:8000"
     depends_on:

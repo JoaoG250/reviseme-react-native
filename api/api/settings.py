@@ -38,15 +38,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_env_value("ESDM_SECRET_KEY")
+SECRET_KEY = get_env_value("REVISEME_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-if get_env_value("ESDM_PRODUCTION") == "FALSE":
+if get_env_value("REVISEME_PRODUCTION") == "FALSE":
     DEBUG = True
     ALLOWED_HOSTS = []
-elif get_env_value("ESDM_PRODUCTION") == "TRUE":
+elif get_env_value("REVISEME_PRODUCTION") == "TRUE":
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
     ALLOWED_HOSTS = ["*"]
@@ -105,11 +105,11 @@ WSGI_APPLICATION = "api.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": get_env_value("ESDM_DATABASE_NAME"),
-        "USER": get_env_value("ESDM_DATABASE_USER"),
-        "PASSWORD": get_env_value("ESDM_DATABASE_PASSWORD"),
-        "HOST": get_env_value("ESDM_DATABASE_HOST"),
-        "PORT": get_env_value("ESDM_DATABASE_PORT"),
+        "NAME": get_env_value("REVISEME_DATABASE_NAME"),
+        "USER": get_env_value("REVISEME_DATABASE_USER"),
+        "PASSWORD": get_env_value("REVISEME_DATABASE_PASSWORD"),
+        "HOST": get_env_value("REVISEME_DATABASE_HOST"),
+        "PORT": get_env_value("REVISEME_DATABASE_PORT"),
     }
 }
 
