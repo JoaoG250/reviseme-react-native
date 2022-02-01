@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
 
-import { View } from "../components/Themed";
 import { Subject } from "../interfaces/Subject";
 import { RootTabScreenProps } from "../types";
 
@@ -58,11 +57,7 @@ export default function SubjectsTabScreen({
         />
       </View>
 
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      <View style={styles.separator} />
       <FAB icon="plus" onPress={() => console.log("Pressed")} />
     </View>
   );
@@ -76,10 +71,6 @@ const styles = StyleSheet.create({
   subjectContainer: {
     width: "100%",
     padding: 16,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,

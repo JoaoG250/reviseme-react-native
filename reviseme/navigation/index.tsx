@@ -5,16 +5,11 @@
  */
 import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
 
-import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
@@ -26,6 +21,8 @@ import {
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import TopicRevisionsTabScreen from "../screens/TopicRevisionsTabScreen";
+import { Colors } from "react-native-paper";
 
 export default function Navigation({
   colorScheme,
@@ -33,10 +30,7 @@ export default function Navigation({
   colorScheme: ColorSchemeName;
 }) {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration} theme={DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -81,15 +75,25 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="SubjectsTab"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors.deepPurpleA700,
       }}
     >
+      <BottomTab.Screen
+        name="TopicRevisionsTab"
+        component={TopicRevisionsTabScreen}
+        options={{
+          title: "Revisions",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="calendar-check-o" color={color} />
+          ),
+        }}
+      />
       <BottomTab.Screen
         name="SubjectsTab"
         component={SubjectsTabScreen}
         options={({ navigation }: RootTabScreenProps<"SubjectsTab">) => ({
           title: "Subjects",
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="paste" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("Modal")}
@@ -100,7 +104,7 @@ function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={Colors.black}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
