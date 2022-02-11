@@ -10,3 +10,34 @@ export interface Topic {
   created_at?: string;
   updated_at?: string;
 }
+
+export type TopicFileType = "PDF" | "IMAGE" | "VIDEO" | "AUDIO";
+
+export interface TopicFile {
+  topic: Topic;
+  fileType: TopicFileType;
+  id: number;
+  file: string;
+}
+
+export interface TopicLink {
+  topic: Topic;
+  id: number;
+  url: string;
+  urlType: TopicFileType;
+}
+
+type TopicRevisionStatus = "PENDING" | "COMPLETED" | "FAILED";
+
+export interface TopicRevision {
+  id: number;
+  topic: Topic;
+  dateRevision1d: string;
+  dateRevision7d: string;
+  dateRevision30d: string;
+  dateRevision90d: string;
+  statusRevision1d: TopicRevisionStatus;
+  statusRevision7d: TopicRevisionStatus;
+  statusRevision30d: TopicRevisionStatus;
+  statusRevision90d: TopicRevisionStatus;
+}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, ProgressBar } from "react-native-paper";
-
-import { RevisionHistory } from "../../interfaces/RevisionHistory";
+import { SubjectRevisionHistory } from "../../interfaces/Subject";
 
 export default function HistoryTabScreen() {
-  const [revisionHistory, setRevisionHistory] = useState<RevisionHistory[]>([]);
+  const [revisionHistory, setRevisionHistory] = useState<
+    SubjectRevisionHistory[]
+  >([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
   // Create test data for revision history on component mount
@@ -42,7 +43,7 @@ export default function HistoryTabScreen() {
     setRevisionProgress(95);
   }, []);
 
-  function renderRevisionHistory({ item }: { item: RevisionHistory }) {
+  function renderRevisionHistory({ item }: { item: SubjectRevisionHistory }) {
     return (
       <Card
         style={{

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, ProgressBar } from "react-native-paper";
-import { TopicRevision } from "../../interfaces/TopicRevision";
+import { TopicRevision } from "../../interfaces/Topic";
 
 export default function TopicRevisionsTabScreen() {
   const [topicRevisions, setTopicRevisions] = useState<TopicRevision[]>([]);
