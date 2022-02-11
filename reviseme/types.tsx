@@ -18,6 +18,7 @@ declare global {
 
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  Subject: NavigatorScreenParams<SubjectTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
 };
@@ -31,8 +32,23 @@ export type RootTabParamList = {
   RevisionHistoryTab: undefined;
 };
 
+export type SubjectTabParamList = {
+  SubjectTopicTab: {
+    subjectId: number;
+  };
+  SubjectRevisionHistoryTab: {
+    subjectId: number;
+  };
+};
+
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<RootTabParamList, Screen>,
+    NativeStackScreenProps<RootStackParamList>
+  >;
+
+export type SubjectTabScreenProps<Screen extends keyof SubjectTabParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<SubjectTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;

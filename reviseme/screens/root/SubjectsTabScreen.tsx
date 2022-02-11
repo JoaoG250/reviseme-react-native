@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { Pressable, FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
 
-import { Subject } from "../interfaces/Subject";
-import { RootTabScreenProps } from "../types";
+import { Subject } from "../../interfaces/Subject";
+import { RootTabScreenProps } from "../../types";
 
 export default function SubjectsTabScreen({
   navigation,
@@ -33,17 +33,28 @@ export default function SubjectsTabScreen({
 
   function renderSubject({ item }: { item: Subject }) {
     return (
-      <Card
-        style={{
-          marginBottom: 10,
+      <Pressable
+        onPress={() => {
+          navigation.navigate("Subject", {
+            screen: "SubjectTopicTab",
+            params: {
+              subjectId: item.id,
+            },
+          });
         }}
       >
-        <Card.Title
-          title={item.name}
-          subtitle={item.description}
-          left={(props) => <Avatar.Icon {...props} icon="book" />}
-        />
-      </Card>
+        <Card
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Card.Title
+            title={item.name}
+            subtitle={item.description}
+            left={(props) => <Avatar.Icon {...props} icon="book" />}
+          />
+        </Card>
+      </Pressable>
     );
   }
 

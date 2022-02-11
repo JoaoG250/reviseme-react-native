@@ -10,25 +10,29 @@ import * as Linking from "expo-linking";
 import { RootStackParamList } from "../types";
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl("/")],
+  prefixes: [Linking.createURL("/")],
   config: {
     screens: {
       Root: {
         screens: {
           TopicRevisionsTab: {
-            screens: {
-              TopicRevisionsTabScreen: "revisions",
-            },
+            path: "revisions",
           },
           SubjectsTab: {
-            screens: {
-              SubjectsTabScreen: "subjects",
-            },
+            path: "subjects",
           },
           RevisionHistoryTab: {
-            screens: {
-              RevisionHistoryTabScreen: "history",
-            },
+            path: "history",
+          },
+        },
+      },
+      Subject: {
+        screens: {
+          SubjectTopicTab: {
+            path: "subjects/:subjectId/topics",
+          },
+          SubjectRevisionHistoryTab: {
+            path: "subjects/:subjectId/revisions",
           },
         },
       },

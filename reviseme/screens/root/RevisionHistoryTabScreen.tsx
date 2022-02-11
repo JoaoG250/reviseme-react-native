@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, ProgressBar } from "react-native-paper";
 
-import { RevisionHistory } from "../interfaces/RevisionHistory";
+import { RevisionHistory } from "../../interfaces/RevisionHistory";
 
 export default function HistoryTabScreen() {
   const [revisionHistory, setRevisionHistory] = useState<RevisionHistory[]>([]);
