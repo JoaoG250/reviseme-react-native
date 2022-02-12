@@ -3,6 +3,7 @@ import { Pressable, FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
 
 import { Subject } from "../../interfaces/Subject";
+import { getSubjects } from "../../services/subject";
 import { RootTabScreenProps } from "../../types";
 
 export default function SubjectsTabScreen({
@@ -12,23 +13,11 @@ export default function SubjectsTabScreen({
 
   // Create test data for subjects on component mount
   useEffect(() => {
-    setSubjects([
-      {
-        id: 1,
-        name: "Mathematics",
-        description: "Mathematics subject",
-      },
-      {
-        id: 2,
-        name: "English",
-        description: "English subject",
-      },
-      {
-        id: 3,
-        name: "Science",
-        description: "Science subject",
-      },
-    ]);
+    async function fetchSubjects() {
+      const response = await getSubjects();
+      setSubjects(response.data);
+    }
+    fetchSubjects();
   }, []);
 
   function renderSubject({ item }: { item: Subject }) {
