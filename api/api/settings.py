@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "core",
     "subject",
     "topic",
+    "django_cleanup.apps.CleanupConfig",  # Deeds to be the last app
 ]
 
 MIDDLEWARE = [
@@ -98,6 +99,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "api.wsgi.application"
 
+AUTH_USER_MODEL = "core.User"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

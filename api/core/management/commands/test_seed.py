@@ -1,9 +1,7 @@
 from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
 
 from subject.models import Subject
-
-User = get_user_model()
+from core.models import User
 
 SUBJECTS = [
     {
@@ -45,11 +43,20 @@ class Command(BaseCommand):
     help = "Seed the database with test data."
 
     def handle(self, *args, **options):
+        # Create test user
+        user = User(
+            first_name="John",
+            last_name="Doe",
+            email="johndoe@test.com",
+            password="secret",
+        )
+        user.save()
+
         # Create test subjects
 
         for subject in SUBJECTS:
             Subject.objects.get_or_create(
-                name=subject["name"], description=subject["description"]
+                user=user, name=subject["name"], description=subject["description"]
             )
 
         self.stdout.write(self.style.SUCCESS("\nTest data seeded to the database.\n"))
