@@ -5,11 +5,13 @@ import * as React from "react";
 import { Colors } from "react-native-paper";
 import SubjectRevisionHistoryTabScreen from "../../screens/subject/SubjectRevisionHistoryTabScreen";
 import SubjectTopicTabScreen from "../../screens/subject/SubjectTopicTabScreen";
-import { SubjectTabParamList } from "../../types";
+import { SubjectStackScreenProps, SubjectTabParamList } from "../../types";
 
 const BottomTab = createBottomTabNavigator<SubjectTabParamList>();
 
-export default function SubjectBottomTabNavigator() {
+export default function SubjectBottomTabNavigator({
+  route,
+}: SubjectStackScreenProps<"Subject">) {
   return (
     <BottomTab.Navigator
       initialRouteName="SubjectTopicTab"
@@ -24,6 +26,7 @@ export default function SubjectBottomTabNavigator() {
           title: "Subject Topics",
           tabBarIcon: ({ color }) => <TabBarIcon name="paste" color={color} />,
         }}
+        initialParams={{ subjectId: route.params.subjectId }}
       />
       <BottomTab.Screen
         name="SubjectRevisionHistoryTab"
@@ -34,6 +37,7 @@ export default function SubjectBottomTabNavigator() {
             <TabBarIcon name="history" color={color} />
           ),
         }}
+        initialParams={{ subjectId: route.params.subjectId }}
       />
     </BottomTab.Navigator>
   );

@@ -27,14 +27,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Subject: {
-        screens: {
-          SubjectTopicTab: {
-            path: "subjects/:subjectId/topics",
-          },
-          SubjectRevisionHistoryTab: {
-            path: "subjects/:subjectId/revisions",
-          },
-        },
+        path: "subjects/:subjectId",
       },
       Modal: "modal",
       NotFound: "*",

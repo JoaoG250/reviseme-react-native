@@ -36,10 +36,7 @@ export default function SubjectsTabScreen({
       <Pressable
         onPress={() => {
           navigation.navigate("Subject", {
-            screen: "SubjectTopicTab",
-            params: {
-              subjectId: item.id,
-            },
+            subjectId: item.id,
           });
         }}
       >
