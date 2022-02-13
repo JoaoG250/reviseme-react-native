@@ -1,6 +1,7 @@
 import typing
 from django.conf import settings
 from django.contrib import admin
+from django.conf.urls import url
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
@@ -33,11 +34,17 @@ schema_view = get_schema_view(
 urlpatterns: URLList = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
+    path("api/openapi/", schema_view, name="openapi-schema"),
+]
+
+# djoser urls
+urlpatterns += [
+    url(r"^api/", include("djoser.urls")),
+    url(r"^api/", include("djoser.urls.authtoken")),
 ]
 
 if settings.DEBUG:
     urlpatterns += [
-        path("api/openapi/", schema_view, name="openapi-schema"),
         path(
             "api/schema/",
             TemplateView.as_view(template_name="swagger-ui.html"),
