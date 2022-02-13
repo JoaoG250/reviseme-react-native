@@ -1,5 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
+from topic.filters import TopicFilter, TopicRevisionFilter
 from topic.models import Topic, TopicFile, TopicLink, TopicRevision
 from topic.serializers import (
     TopicSerializer,
@@ -10,20 +13,59 @@ from topic.serializers import (
 
 
 class TopicViewSet(viewsets.ModelViewSet):
-    queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+    filterset_class = TopicFilter
+
+    def get_queryset(self):
+        return Topic.objects.filter(subject__user=self.request.user).order_by(
+            "-updated_at"
+        )
+
+    @action(detail=True, methods=["get"])
+    def complete_revision(self, request, pk=None):
+        topic = self.get_object()
+        revision = topic.complete_revision()
+        return TopicRevisionSerializer(instance=revision).data
+
+    @action(detail=False, methods=["get"])
+    def revision_progress(self, request):
+        # Calculate the progress based on the number of revisions completed
+        # and the number of revisions total.
+        revision_count = TopicRevision.objects.filter(
+            topic__subject__user=request.user
+        ).count()
+        completed_count = TopicRevision.objects.filter(
+            topic__subject__user=request.user, complete=True
+        ).count()
+        progress = completed_count / revision_count * 100
+        return Response({"progress": progress})
 
 
 class TopicFileViewSet(viewsets.ModelViewSet):
-    queryset = TopicFile.objects.all()
     serializer_class = TopicFileSerializer
+
+    def get_queryset(self):
+        return TopicFile.objects.filter(
+            topic__subject__user=self.request.user
+        ).order_by("-updated_at")
 
 
 class TopicLinkViewSet(viewsets.ModelViewSet):
-    queryset = TopicLink.objects.all()
     serializer_class = TopicLinkSerializer
 
+    def get_queryset(self):
+        return TopicLink.objects.filter(
+            topic__subject__user=self.request.user
+        ).order_by("-updated_at")
 
-class TopicRevisionViewSet(viewsets.ModelViewSet):
-    queryset = TopicRevision.objects.all()
+
+class TopicRevisionViewSet(
+    mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+):
     serializer_class = TopicRevisionSerializer
+    filterset_class = TopicRevisionFilter
+
+    def get_queryset(self):
+        return TopicRevision.objects.filter(
+            topic__subject__user=self.request.user
+        ).order_by("-updated_at")

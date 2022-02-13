@@ -13,11 +13,13 @@ import subject.views as subject_views
 import topic.views as topic_views
 
 router = routers.DefaultRouter()
-router.register(r"subjects", subject_views.SubjectViewSet)
-router.register(r"topics", topic_views.TopicViewSet)
-router.register(r"topic-files", topic_views.TopicFileViewSet)
-router.register(r"topic-links", topic_views.TopicLinkViewSet)
-router.register(r"topic-revisions", topic_views.TopicRevisionViewSet)
+router.register(r"subjects", subject_views.SubjectViewSet, basename="subject")
+router.register(r"topics", topic_views.TopicViewSet, basename="topic")
+router.register(r"topic-files", topic_views.TopicFileViewSet, basename="topic-file")
+router.register(r"topic-links", topic_views.TopicLinkViewSet, basename="topic-link")
+router.register(
+    r"topic-revisions", topic_views.TopicRevisionViewSet, basename="topic-revision"
+)
 
 URL = typing.Union[URLPattern, URLResolver]
 URLList = typing.List[URL]

@@ -22,6 +22,8 @@ class TopicLinkSerializer(serializers.ModelSerializer):
 
 
 class TopicRevisionSerializer(serializers.ModelSerializer):
+    topic = TopicSerializer(read_only=True)
+
     class Meta:
         model = TopicRevision
         fields = "__all__"

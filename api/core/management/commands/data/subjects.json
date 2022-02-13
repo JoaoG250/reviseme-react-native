@@ -1,0 +1,222 @@
+[
+  {
+    "name": "Mathematics",
+    "description": "Mathematics is the study of the properties of numbers, quantities, and the relationships between them.",
+    "topics": [
+      {
+        "name": "Addition",
+        "description": "Addition is the process of adding two or more numbers together."
+      },
+      {
+        "name": "Subtraction",
+        "description": "Subtraction is the process of taking one number from another."
+      },
+      {
+        "name": "Multiplication",
+        "description": "Multiplication is the process of multiplying two or more numbers together."
+      },
+      {
+        "name": "Division",
+        "description": "Division is the process of dividing one number by another."
+      }
+    ]
+  },
+  {
+    "name": "Physics",
+    "description": "Physics is the study of matter and its motion through space and time.",
+    "topics": [
+      {
+        "name": "Motion",
+        "description": "Motion is the movement of an object in a straight line."
+      },
+      {
+        "name": "Gravity",
+        "description": "Gravity is the force of attraction between two objects."
+      },
+      {
+        "name": "Electricity",
+        "description": "Electricity is the flow of electric charge through a conductor."
+      },
+      {
+        "name": "Magnetism",
+        "description": "Magnetism is the force of attraction between two objects."
+      }
+    ]
+  },
+  {
+    "name": "Chemistry",
+    "description": "Chemistry is the study of matter and its properties, including its composition, structure, and behavior.",
+    "topics": [
+      {
+        "name": "Atoms",
+        "description": "Atoms are the smallest units of matter."
+      },
+      {
+        "name": "Molecules",
+        "description": "Molecules are the smallest units of matter."
+      },
+      {
+        "name": "Bonds",
+        "description": "Bonds are the relationships between atoms and molecules."
+      },
+      {
+        "name": "Ions",
+        "description": "Ions are the smallest units of matter."
+      }
+    ]
+  },
+  {
+    "name": "Biology",
+    "description": "Biology is the natural science that studies life and living organisms.",
+    "topics": [
+      {
+        "name": "Animals",
+        "description": "Animals are living organisms."
+      },
+      {
+        "name": "Plants",
+        "description": "Plants are living organisms."
+      },
+      {
+        "name": "Microbes",
+        "description": "Microbes are living organisms."
+      },
+      {
+        "name": "Fungi",
+        "description": "Fungi are living organisms."
+      }
+    ]
+  },
+  {
+    "name": "English",
+    "description": "English is the language of the world.",
+    "topics": [
+      {
+        "name": "Vocabulary",
+        "description": "Vocabulary is the study of words and their meanings."
+      },
+      {
+        "name": "Grammar",
+        "description": "Grammar is the study of the structure of sentences."
+      },
+      {
+        "name": "Reading",
+        "description": "Reading is the study of the meaning of words."
+      },
+      {
+        "name": "Writing",
+        "description": "Writing is the study of the meaning of words."
+      }
+    ]
+  },
+  {
+    "name": "History",
+    "description": "History is the study of past events and how they relate to present events.",
+    "topics": [
+      {
+        "name": "World History",
+        "description": "World History is the study of past events and how they relate to present events."
+      },
+      {
+        "name": "US History",
+        "description": "US History is the study of past events and how they relate to present events."
+      },
+      {
+        "name": "Geography",
+        "description": "Geography is the study of past events and how they relate to present events."
+      },
+      {
+        "name": "Government",
+        "description": "Government is the study of past events and how they relate to present events."
+      }
+    ]
+  },
+  {
+    "name": "Geography",
+    "description": "Geography is the study of the earth and its natural resources.",
+    "topics": [
+      {
+        "name": "Countries",
+        "description": "Countries are the study of the earth and its natural resources."
+      },
+      {
+        "name": "States",
+        "description": "States are the study of the earth and its natural resources."
+      },
+      {
+        "name": "Cities",
+        "description": "Cities are the study of the earth and its natural resources."
+      },
+      {
+        "name": "Mountains",
+        "description": "Mountains are the study of the earth and its natural resources."
+      }
+    ]
+  },
+  {
+    "name": "Literature",
+    "description": "Literature is the study of literature.",
+    "topics": [
+      {
+        "name": "Poetry",
+        "description": "Poetry is the study of literature."
+      },
+      {
+        "name": "Fiction",
+        "description": "Fiction is the study of literature."
+      },
+      {
+        "name": "Non-Fiction",
+        "description": "Non-Fiction is the study of literature."
+      },
+      {
+        "name": "Biography",
+        "description": "Biography is the study of literature."
+      }
+    ]
+  },
+  {
+    "name": "Music",
+    "description": "Music is the study of the sounds of the human body.",
+    "topics": [
+      {
+        "name": "Piano",
+        "description": "Piano is the study of the sounds of the human body."
+      },
+      {
+        "name": "Guitar",
+        "description": "Guitar is the study of the sounds of the human body."
+      },
+      {
+        "name": "Drums",
+        "description": "Drums are the study of the sounds of the human body."
+      },
+      {
+        "name": "Singing",
+        "description": "Singing is the study of the sounds of the human body."
+      }
+    ]
+  },
+  {
+    "name": "Philosophy",
+    "description": "Philosophy is the study of the nature and origin of knowledge.",
+    "topics": [
+      {
+        "name": "Logic",
+        "description": "Logic is the study of the nature and origin of knowledge."
+      },
+      {
+        "name": "Religion",
+        "description": "Religion is the study of the nature and origin of knowledge."
+      },
+      {
+        "name": "Psychology",
+        "description": "Psychology is the study of the nature and origin of knowledge."
+      },
+      {
+        "name": "Theology",
+        "description": "Theology is the study of the nature and origin of knowledge."
+      }
+    ]
+  }
+]
