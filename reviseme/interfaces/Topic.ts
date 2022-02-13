@@ -7,8 +7,8 @@ export interface Topic {
   description: string;
   image?: string;
   active: boolean;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type TopicFileType = "PDF" | "IMAGE" | "VIDEO" | "AUDIO";
@@ -27,17 +27,14 @@ export interface TopicLink {
   urlType: TopicFileType;
 }
 
-type TopicRevisionStatus = "PENDING" | "COMPLETED" | "FAILED";
+type TopicRevisionPhase = "1D" | "7D" | "30D" | "90D";
 
 export interface TopicRevision {
   id: number;
   topic: Topic;
-  dateRevision1d: string;
-  dateRevision7d: string;
-  dateRevision30d: string;
-  dateRevision90d: string;
-  statusRevision1d: TopicRevisionStatus;
-  statusRevision7d: TopicRevisionStatus;
-  statusRevision30d: TopicRevisionStatus;
-  statusRevision90d: TopicRevisionStatus;
+  phase: TopicRevisionPhase;
+  revisionDate: string;
+  complete: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

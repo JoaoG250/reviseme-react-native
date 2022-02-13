@@ -5,8 +5,8 @@ export interface Subject {
   name: string;
   description: string;
   image?: string;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface SubjectRevisionHistory {

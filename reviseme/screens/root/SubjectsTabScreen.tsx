@@ -55,7 +55,11 @@ export default function SubjectsTabScreen({
       </View>
 
       <View style={styles.separator} />
-      <FAB icon="plus" onPress={() => console.log("Pressed")} />
+      <FAB
+        style={styles.fab}
+        icon="plus"
+        onPress={() => console.log("Pressed")}
+      />
     </View>
   );
 }
@@ -73,5 +77,11 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
