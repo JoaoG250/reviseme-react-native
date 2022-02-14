@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 
 from subject.models import Subject
-from subject.serializers import SubjectSerializer
+from subject.serializers import CreateSubjectSerializer, SubjectSerializer
 from topic.models import TopicRevision
 
 
@@ -12,6 +12,14 @@ class SubjectViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Subject.objects.filter(user=self.request.user).order_by("-updated_at")
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return CreateSubjectSerializer
+        return self.serializer_class
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     @action(detail=True, methods=["get"])
     def revision_progress(self, request, pk=None):

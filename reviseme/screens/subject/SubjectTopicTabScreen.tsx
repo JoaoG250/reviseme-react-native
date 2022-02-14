@@ -7,6 +7,7 @@ import { Subject } from "../../interfaces/Subject";
 import { Topic } from "../../interfaces/Topic";
 import { getTopics } from "../../services/topic";
 import baseStyle from "../../styles/base";
+import listStyle from "../../styles/list";
 
 export default function SubjectTopicTabScreen() {
   const { subject } = useSubject();
@@ -48,6 +49,14 @@ export default function SubjectTopicTabScreen() {
           />
         </Card>
       </Pressable>
+    );
+  }
+
+  if (topics.length === 0) {
+    return (
+      <View style={baseStyle.container}>
+        <Text style={listStyle.noItemsAlert}>No subject topics</Text>
+      </View>
     );
   }
 
