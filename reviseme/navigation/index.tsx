@@ -1,54 +1,44 @@
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName } from "react-native";
+import * as Linking from "expo-linking";
+import Routes from "./routes";
 
-import ModalScreen from "../screens/ModalScreen";
-import NotFoundScreen from "../screens/NotFoundScreen";
+import { AuthProvider } from "../contexts/auth";
 import { RootStackParamList } from "../types";
-import LinkingConfiguration from "./LinkingConfiguration";
-import RootBottomTabNavigator from "./root/RootBottomTabNavigator";
-import SubjectBottomTabNavigator from "./subject/SubjectBottomTabNavigator";
+import { LinkingOptions } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Navigation() {
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={DefaultTheme}>
-      <RootNavigator />
+    <NavigationContainer linking={linking} theme={DefaultTheme}>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </NavigationContainer>
   );
 }
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-function RootNavigator() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Root"
-        component={RootBottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Subject"
-        component={SubjectBottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
-  );
-}
+const linking: LinkingOptions<RootStackParamList> = {
+  prefixes: [Linking.createURL("/")],
+  config: {
+    screens: {
+      Root: {
+        screens: {
+          TopicRevisionsTab: {
+            path: "revisions",
+          },
+          SubjectsTab: {
+            path: "subjects",
+          },
+          RevisionHistoryTab: {
+            path: "history",
+          },
+        },
+      },
+      Subject: {
+        path: "subjects/:subjectId",
+      },
+      Modal: "modal",
+      NotFound: "*",
+    },
+  },
+};

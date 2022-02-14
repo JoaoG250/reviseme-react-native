@@ -1,7 +1,22 @@
 import axios from "axios";
+import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
 const api = axios.create({
   baseURL: "http://192.168.0.100:8000/api/",
+});
+
+api.interceptors.request.use(async (config) => {
+  const token = await AsyncStorageLib.getItem("@reviseme:token");
+
+  if (token) {
+    if (config.headers === undefined) {
+      config.headers = {};
+    }
+
+    config.headers.Authorization = `Token ${token}`;
+  }
+
+  return config;
 });
 
 type HttpMethod = "get" | "post" | "put" | "delete" | "patch";
