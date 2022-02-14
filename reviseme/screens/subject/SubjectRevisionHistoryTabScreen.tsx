@@ -1,12 +1,15 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
+import { Card, Checkbox, ProgressBar } from "react-native-paper";
 import { useSubject } from "../../contexts/subject";
 import { Subject } from "../../interfaces/Subject";
 import { TopicRevision } from "../../interfaces/Topic";
 import { getSubjectRevisionProgress } from "../../services/subject";
 import { getTopicRevisions } from "../../services/topic";
+import baseStyle from "../../styles/base";
+import listStyle from "../../styles/list";
+import progressStyle from "../../styles/progress";
 import { formatDate } from "../../utils/formatters";
 
 export default function SubjectRevisionHistoryTabScreen() {
@@ -67,15 +70,15 @@ export default function SubjectRevisionHistoryTabScreen() {
 
   if (revisions.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.noItemsAlert}>No revision history</Text>
+      <View style={baseStyle.container}>
+        <Text style={listStyle.noItemsAlert}>No revision history</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Revisions</Text>
+    <View style={baseStyle.container}>
+      <Text style={baseStyle.title}>Revisions</Text>
       <View style={styles.historyContainer}>
         <FlatList
           data={revisions}
@@ -83,9 +86,11 @@ export default function SubjectRevisionHistoryTabScreen() {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <View style={styles.separator} />
-      <Text style={styles.revisionProgressPercentage}>{revisionProgress}%</Text>
-      <View style={styles.progressContainer}>
+      <View style={baseStyle.separator} />
+      <Text style={progressStyle.revisionProgressPercentage}>
+        {revisionProgress}%
+      </Text>
+      <View style={progressStyle.progressContainer}>
         <ProgressBar progress={revisionProgress / 100} />
       </View>
       <Text>{revisionProgress}% of revisions completed</Text>
@@ -94,41 +99,9 @@ export default function SubjectRevisionHistoryTabScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 30,
-    marginTop: 20,
-  },
   historyContainer: {
     width: "100%",
     maxHeight: "50%",
     padding: 16,
-  },
-  noItemsAlert: {
-    fontSize: 18,
-    textAlign: "center",
-    marginTop: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    borderWidth: 1,
-    backgroundColor: Colors.orangeA100,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  progressContainer: {
-    width: "100%",
-    padding: 16,
-  },
-  revisionProgressPercentage: {
-    fontSize: 40,
-    fontWeight: "bold",
   },
 });

@@ -1,12 +1,15 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
+import { Card, Checkbox, ProgressBar } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
 import {
   getDailyTopicRevisions,
   getTopicRevisionsProgress,
 } from "../../services/topic";
+import baseStyle from "../../styles/base";
+import listStyle from "../../styles/list";
+import progressStyle from "../../styles/progress";
 
 export default function TopicRevisionsTabScreen() {
   const [topicRevisions, setTopicRevisions] = useState<TopicRevision[]>([]);
@@ -48,15 +51,15 @@ export default function TopicRevisionsTabScreen() {
 
   if (topicRevisions.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.noItemsAlert}>No daily revisions</Text>
+      <View style={baseStyle.container}>
+        <Text style={listStyle.noItemsAlert}>No daily revisions</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Daily Revisions</Text>
+    <View style={baseStyle.container}>
+      <Text style={baseStyle.title}>Daily Revisions</Text>
       <View style={styles.revisionsContainer}>
         <FlatList
           data={topicRevisions}
@@ -64,9 +67,11 @@ export default function TopicRevisionsTabScreen() {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-      <View style={styles.separator} />
-      <Text style={styles.revisionProgressPercentage}>{revisionProgress}%</Text>
-      <View style={styles.progressContainer}>
+      <View style={baseStyle.separator} />
+      <Text style={progressStyle.revisionProgressPercentage}>
+        {revisionProgress}%
+      </Text>
+      <View style={progressStyle.progressContainer}>
         <ProgressBar progress={revisionProgress / 100} />
       </View>
       <Text>{revisionProgress}% of revisions completed</Text>
@@ -75,41 +80,9 @@ export default function TopicRevisionsTabScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 30,
-    marginTop: 20,
-  },
   revisionsContainer: {
     width: "100%",
     maxHeight: "50%",
     padding: 16,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  progressContainer: {
-    width: "100%",
-    padding: 16,
-  },
-  revisionProgressPercentage: {
-    fontSize: 40,
-    fontWeight: "bold",
-  },
-  noItemsAlert: {
-    fontSize: 18,
-    textAlign: "center",
-    marginTop: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    borderWidth: 1,
-    backgroundColor: Colors.orangeA100,
   },
 });

@@ -6,6 +6,7 @@ import { useSubject } from "../../contexts/subject";
 import { Subject } from "../../interfaces/Subject";
 import { Topic } from "../../interfaces/Topic";
 import { getTopics } from "../../services/topic";
+import baseStyle from "../../styles/base";
 
 export default function SubjectTopicTabScreen() {
   const { subject } = useSubject();
@@ -51,9 +52,9 @@ export default function SubjectTopicTabScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={baseStyle.container}>
       <View>
-        <Text style={styles.title}>{subject?.name}</Text>
+        <Text style={baseStyle.title}>{subject?.name}</Text>
       </View>
       <View style={styles.topicsContainer}>
         <FlatList
@@ -63,7 +64,7 @@ export default function SubjectTopicTabScreen() {
         />
       </View>
 
-      <View style={styles.separator} />
+      <View style={baseStyle.separator} />
       <FAB
         style={styles.fab}
         icon="plus"
@@ -74,22 +75,9 @@ export default function SubjectTopicTabScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 30,
-    marginTop: 20,
-  },
   topicsContainer: {
     width: "100%",
     padding: 16,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
   fab: {
     position: "absolute",

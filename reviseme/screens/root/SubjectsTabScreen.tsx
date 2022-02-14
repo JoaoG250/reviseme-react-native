@@ -5,6 +5,7 @@ import { Avatar, Card, FAB } from "react-native-paper";
 
 import { Subject } from "../../interfaces/Subject";
 import { getSubjects } from "../../services/subject";
+import baseStyle from "../../styles/base";
 import { RootTabScreenProps } from "../../types";
 
 export default function SubjectsTabScreen({
@@ -48,7 +49,7 @@ export default function SubjectsTabScreen({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={baseStyle.container}>
       <View style={styles.subjectContainer}>
         <FlatList
           data={subjects}
@@ -57,7 +58,7 @@ export default function SubjectsTabScreen({
         />
       </View>
 
-      <View style={styles.separator} />
+      <View style={baseStyle.separator} />
       <FAB
         style={styles.fab}
         icon="plus"
@@ -68,18 +69,9 @@ export default function SubjectsTabScreen({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
   subjectContainer: {
     width: "100%",
     padding: 16,
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
   fab: {
     position: "absolute",

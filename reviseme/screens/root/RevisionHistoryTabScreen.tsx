@@ -1,9 +1,11 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
+import { Card, Checkbox } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
 import { getTopicRevisionsHistory } from "../../services/topic";
+import baseStyle from "../../styles/base";
+import listStyle from "../../styles/list";
 import { formatDate } from "../../utils/formatters";
 
 export default function HistoryTabScreen() {
@@ -41,14 +43,14 @@ export default function HistoryTabScreen() {
 
   if (topicRevisionsHistory.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.noItemsAlert}>No revision history</Text>
+      <View style={baseStyle.container}>
+        <Text style={listStyle.noItemsAlert}>No revision history</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <View style={baseStyle.container}>
       <View style={styles.historyContainer}>
         <FlatList
           data={topicRevisionsHistory}
@@ -61,23 +63,8 @@ export default function HistoryTabScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
   historyContainer: {
     width: "100%",
     padding: 16,
-  },
-  noItemsAlert: {
-    fontSize: 18,
-    textAlign: "center",
-    marginTop: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    borderWidth: 1,
-    backgroundColor: Colors.orangeA100,
   },
 });
