@@ -2,36 +2,31 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
+import { useSubject } from "../../contexts/subject";
 import { Subject } from "../../interfaces/Subject";
 import { TopicRevision } from "../../interfaces/Topic";
-import { getSubject, getSubjectRevisionProgress } from "../../services/subject";
+import { getSubjectRevisionProgress } from "../../services/subject";
 import { getTopicRevisions } from "../../services/topic";
-import { SubjectTabScreenProps } from "../../types";
 import { formatDate } from "../../utils/formatters";
 
-export default function SubjectRevisionHistoryTabScreen({
-  route,
-}: SubjectTabScreenProps<"SubjectRevisionHistoryTab">) {
-  const [subject, setSubject] = useState<Subject>();
+export default function SubjectRevisionHistoryTabScreen() {
+  const { subject } = useSubject();
   const [revisions, setRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
   // Get subject on screen focus
   useFocusEffect(
     useCallback(() => {
-      async function fetchSubject() {
-        const subjectResponse = await getSubject(route.params.subjectId);
-        setSubject(subjectResponse.data);
-
+      async function fetchData(subject: Subject) {
         // Get subject topics
         const revisionsResponse = await getTopicRevisions({
-          subject: subjectResponse.data.id,
+          subject: subject.id,
         });
         setRevisions(revisionsResponse.data);
 
         // Get revision progress
         const revisionProgressResponse = await getSubjectRevisionProgress(
-          route.params.subjectId
+          subject.id
         );
 
         // Round to two decimal places
@@ -41,8 +36,11 @@ export default function SubjectRevisionHistoryTabScreen({
 
         setRevisionProgress(progress);
       }
-      fetchSubject();
-    }, [])
+
+      if (subject) {
+        fetchData(subject);
+      }
+    }, [subject])
   );
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {

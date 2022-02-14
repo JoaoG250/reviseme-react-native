@@ -2,33 +2,30 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
+import { useSubject } from "../../contexts/subject";
 import { Subject } from "../../interfaces/Subject";
 import { Topic } from "../../interfaces/Topic";
-import { getSubject } from "../../services/subject";
 import { getTopics } from "../../services/topic";
-import { SubjectTabScreenProps } from "../../types";
 
-export default function SubjectTopicTabScreen({
-  route,
-}: SubjectTabScreenProps<"SubjectTopicTab">) {
-  const [subject, setSubject] = useState<Subject>();
+export default function SubjectTopicTabScreen() {
+  const { subject } = useSubject();
   const [topics, setTopics] = useState<Topic[]>([]);
 
   // Get subject on screen focus
   useFocusEffect(
     useCallback(() => {
-      async function fetchSubject() {
-        const subjectResponse = await getSubject(route.params.subjectId);
-        setSubject(subjectResponse.data);
-
+      async function fetchData(subject: Subject) {
         // Get subject topics
         const topicsResponse = await getTopics({
-          subject: subjectResponse.data.id,
+          subject: subject.id,
         });
         setTopics(topicsResponse.data);
       }
-      fetchSubject();
-    }, [])
+
+      if (subject) {
+        fetchData(subject);
+      }
+    }, [subject])
   );
 
   function renderTopic({ item }: { item: Topic }) {

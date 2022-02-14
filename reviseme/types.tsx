@@ -38,12 +38,8 @@ export type RootTabParamList = {
 };
 
 export type SubjectTabParamList = {
-  SubjectTopicTab: {
-    subjectId: number;
-  };
-  SubjectRevisionHistoryTab: {
-    subjectId: number;
-  };
+  SubjectTopicTab: undefined;
+  SubjectRevisionHistoryTab: undefined;
 };
 
 // Stack Screen Props

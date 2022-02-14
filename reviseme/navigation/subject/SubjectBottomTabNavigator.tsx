@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 
 import { Colors } from "react-native-paper";
+import { SubjectProvider } from "../../contexts/subject";
 import SubjectRevisionHistoryTabScreen from "../../screens/subject/SubjectRevisionHistoryTabScreen";
 import SubjectTopicTabScreen from "../../screens/subject/SubjectTopicTabScreen";
 import { SubjectStackScreenProps, SubjectTabParamList } from "../../types";
@@ -13,33 +14,35 @@ export default function SubjectBottomTabNavigator({
   route,
 }: SubjectStackScreenProps<"Subject">) {
   return (
-    <BottomTab.Navigator
-      initialRouteName="SubjectTopicTab"
-      screenOptions={{
-        tabBarActiveTintColor: Colors.deepPurpleA700,
-      }}
-    >
-      <BottomTab.Screen
-        name="SubjectTopicTab"
-        component={SubjectTopicTabScreen}
-        options={{
-          title: "Subject Topics",
-          tabBarIcon: ({ color }) => <TabBarIcon name="paste" color={color} />,
+    <SubjectProvider subjectId={route.params.subjectId}>
+      <BottomTab.Navigator
+        initialRouteName="SubjectTopicTab"
+        screenOptions={{
+          tabBarActiveTintColor: Colors.deepPurpleA700,
         }}
-        initialParams={{ subjectId: route.params.subjectId }}
-      />
-      <BottomTab.Screen
-        name="SubjectRevisionHistoryTab"
-        component={SubjectRevisionHistoryTabScreen}
-        options={{
-          title: "Topic History",
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="history" color={color} />
-          ),
-        }}
-        initialParams={{ subjectId: route.params.subjectId }}
-      />
-    </BottomTab.Navigator>
+      >
+        <BottomTab.Screen
+          name="SubjectTopicTab"
+          component={SubjectTopicTabScreen}
+          options={{
+            title: "Subject Topics",
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon name="paste" color={color} />
+            ),
+          }}
+        />
+        <BottomTab.Screen
+          name="SubjectRevisionHistoryTab"
+          component={SubjectRevisionHistoryTabScreen}
+          options={{
+            title: "Topic History",
+            tabBarIcon: ({ color }) => (
+              <TabBarIcon name="history" color={color} />
+            ),
+          }}
+        />
+      </BottomTab.Navigator>
+    </SubjectProvider>
   );
 }
 
