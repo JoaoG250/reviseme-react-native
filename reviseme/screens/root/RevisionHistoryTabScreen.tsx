@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
@@ -10,14 +11,17 @@ export default function HistoryTabScreen() {
     TopicRevision[]
   >([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getTopicRevisionsHistory();
-      setTopicRevisionsHistory(response.data);
-    }
+  // Fetch the data on screen focus
+  useFocusEffect(
+    useCallback(() => {
+      async function fetchData() {
+        const response = await getTopicRevisionsHistory();
+        setTopicRevisionsHistory(response.data);
+      }
 
-    fetchData();
-  }, []);
+      fetchData();
+    }, [])
+  );
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {
     return (

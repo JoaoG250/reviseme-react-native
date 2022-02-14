@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
@@ -11,20 +12,23 @@ export default function TopicRevisionsTabScreen() {
   const [topicRevisions, setTopicRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
-  useEffect(() => {
-    async function fetchData() {
-      const topicsResponse = await getDailyTopicRevisions();
-      setTopicRevisions(topicsResponse.data);
-      const progressResponse = await getTopicRevisionsProgress();
+  // Fetch the data on screen focus
+  useFocusEffect(
+    useCallback(() => {
+      async function fetchData() {
+        const topicsResponse = await getDailyTopicRevisions();
+        setTopicRevisions(topicsResponse.data);
+        const progressResponse = await getTopicRevisionsProgress();
 
-      // Round to two decimal places
-      const progress = Number(progressResponse.data.progress.toFixed(2));
+        // Round to two decimal places
+        const progress = Number(progressResponse.data.progress.toFixed(2));
 
-      setRevisionProgress(progress);
-    }
+        setRevisionProgress(progress);
+      }
 
-    fetchData();
-  }, []);
+      fetchData();
+    }, [])
+  );
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {
     return (
@@ -36,7 +40,7 @@ export default function TopicRevisionsTabScreen() {
         <Card.Title
           title={item.topic.name}
           subtitle={item.topic.subject.name}
-          right={(props) => <Checkbox {...props} status="checked" disabled />}
+          right={(props) => <Checkbox {...props} status="unchecked" disabled />}
         />
       </Card>
     );

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import { Pressable, FlatList, StyleSheet, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
 
@@ -11,14 +12,16 @@ export default function SubjectsTabScreen({
 }: RootTabScreenProps<"SubjectsTab">) {
   const [subjects, setSubjects] = useState<Subject[]>([]);
 
-  // Create test data for subjects on component mount
-  useEffect(() => {
-    async function fetchSubjects() {
-      const response = await getSubjects();
-      setSubjects(response.data);
-    }
-    fetchSubjects();
-  }, []);
+  // Fetch the data on screen focus
+  useFocusEffect(
+    useCallback(() => {
+      async function fetchSubjects() {
+        const response = await getSubjects();
+        setSubjects(response.data);
+      }
+      fetchSubjects();
+    }, [])
+  );
 
   function renderSubject({ item }: { item: Subject }) {
     return (
