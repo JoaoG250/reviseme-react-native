@@ -58,7 +58,9 @@ class Topic(TimeStampedModel):
             raise ValueError("Invalid phase")
 
         next_revision = TopicRevision(
-            topic=revision.topic, phase=next_phase, revision_date=next_revision_date
+            topic=revision.topic,
+            phase=next_phase,
+            revision_date=next_revision_date.date(),
         )
         next_revision.save()
 

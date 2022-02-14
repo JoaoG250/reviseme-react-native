@@ -1,49 +1,25 @@
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card, Checkbox, ProgressBar } from "react-native-paper";
-import { SubjectRevisionHistory } from "../../interfaces/Subject";
+import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
+import { TopicRevision } from "../../interfaces/Topic";
+import { getTopicRevisionsHistory } from "../../services/topic";
+import { formatDate } from "../../utils/formatters";
 
 export default function HistoryTabScreen() {
-  const [revisionHistory, setRevisionHistory] = useState<
-    SubjectRevisionHistory[]
+  const [topicRevisionsHistory, setTopicRevisionsHistory] = useState<
+    TopicRevision[]
   >([]);
-  const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
-  // Create test data for revision history on component mount
   useEffect(() => {
-    setRevisionHistory([
-      {
-        id: 1,
-        subject: {
-          id: 1,
-          name: "Mathematics",
-          description: "Mathematics subject",
-        },
-        date: "2020-01-01",
-      },
-      {
-        id: 2,
-        subject: {
-          id: 2,
-          name: "English",
-          description: "English subject",
-        },
-        date: "2020-01-02",
-      },
-      {
-        id: 3,
-        subject: {
-          id: 3,
-          name: "Science",
-          description: "Science subject",
-        },
-        date: "2020-01-03",
-      },
-    ]);
-    setRevisionProgress(95);
+    async function fetchData() {
+      const response = await getTopicRevisionsHistory();
+      setTopicRevisionsHistory(response.data);
+    }
+
+    fetchData();
   }, []);
 
-  function renderRevisionHistory({ item }: { item: SubjectRevisionHistory }) {
+  function renderTopicRevision({ item }: { item: TopicRevision }) {
     return (
       <Card
         style={{
@@ -51,11 +27,19 @@ export default function HistoryTabScreen() {
         }}
       >
         <Card.Title
-          title={item.subject.name}
-          subtitle={item.date}
+          title={item.topic.name}
+          subtitle={formatDate(item.updatedAt)}
           right={(props) => <Checkbox {...props} status="checked" disabled />}
         />
       </Card>
+    );
+  }
+
+  if (topicRevisionsHistory.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.noItemsAlert}>No revision history</Text>
+      </View>
     );
   }
 
@@ -63,19 +47,11 @@ export default function HistoryTabScreen() {
     <View style={styles.container}>
       <View style={styles.historyContainer}>
         <FlatList
-          data={revisionHistory}
-          renderItem={renderRevisionHistory}
+          data={topicRevisionsHistory}
+          renderItem={renderTopicRevision}
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-
-      <View style={styles.separator} />
-
-      <Text style={styles.revisionProgressPercentage}>{revisionProgress}%</Text>
-      <View style={styles.progressContainer}>
-        <ProgressBar progress={revisionProgress / 100} />
-      </View>
-      <Text>{revisionProgress}% of revisions completed</Text>
     </View>
   );
 }
@@ -89,17 +65,15 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 16,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-  progressContainer: {
-    width: "100%",
-    padding: 16,
-  },
-  revisionProgressPercentage: {
-    fontSize: 40,
-    fontWeight: "bold",
+  noItemsAlert: {
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+    borderColor: "#ccc",
+    borderRadius: 4,
+    borderWidth: 1,
+    backgroundColor: Colors.orangeA100,
   },
 });

@@ -25,7 +25,8 @@ class TopicViewSet(viewsets.ModelViewSet):
     def complete_revision(self, request, pk=None):
         topic = self.get_object()
         revision = topic.complete_revision()
-        return TopicRevisionSerializer(instance=revision).data
+        serializer = TopicRevisionSerializer(instance=revision)
+        return Response(serializer.data)
 
     @action(detail=False, methods=["get"])
     def revision_progress(self, request):

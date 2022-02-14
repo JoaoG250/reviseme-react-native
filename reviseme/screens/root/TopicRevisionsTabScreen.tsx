@@ -1,61 +1,29 @@
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { Card, Checkbox, ProgressBar } from "react-native-paper";
+import { Card, Checkbox, Colors, ProgressBar } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
+import {
+  getDailyTopicRevisions,
+  getTopicRevisionsProgress,
+} from "../../services/topic";
 
 export default function TopicRevisionsTabScreen() {
   const [topicRevisions, setTopicRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
-  // Create test data for topic revisions on component mount
   useEffect(() => {
-    setTopicRevisions([
-      {
-        id: 1,
-        topic: {
-          id: 1,
-          subject: {
-            id: 1,
-            name: "Mathematics",
-            description: "Mathematics subject",
-          },
-          name: "Addition",
-          description: "Addition topic",
-          active: true,
-        },
-        dateRevision1d: "2020-01-01",
-        dateRevision7d: "2020-01-02",
-        dateRevision30d: "2020-01-03",
-        dateRevision90d: "2020-01-04",
-        statusRevision1d: "PENDING",
-        statusRevision7d: "PENDING",
-        statusRevision30d: "PENDING",
-        statusRevision90d: "PENDING",
-      },
-      {
-        id: 2,
-        topic: {
-          id: 2,
-          subject: {
-            id: 1,
-            name: "Mathematics",
-            description: "Mathematics subject",
-          },
-          name: "Subtraction",
-          description: "Subtraction topic",
-          active: true,
-        },
-        dateRevision1d: "2020-01-01",
-        dateRevision7d: "2020-01-02",
-        dateRevision30d: "2020-01-03",
-        dateRevision90d: "2020-01-04",
-        statusRevision1d: "PENDING",
-        statusRevision7d: "PENDING",
-        statusRevision30d: "PENDING",
-        statusRevision90d: "PENDING",
-      },
-    ]);
-    setRevisionProgress(17);
+    async function fetchData() {
+      const topicsResponse = await getDailyTopicRevisions();
+      setTopicRevisions(topicsResponse.data);
+      const progressResponse = await getTopicRevisionsProgress();
+
+      // Round to two decimal places
+      const progress = Number(progressResponse.data.progress.toFixed(2));
+
+      setRevisionProgress(progress);
+    }
+
+    fetchData();
   }, []);
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {
@@ -71,6 +39,14 @@ export default function TopicRevisionsTabScreen() {
           right={(props) => <Checkbox {...props} status="checked" disabled />}
         />
       </Card>
+    );
+  }
+
+  if (topicRevisions.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.noItemsAlert}>No daily revisions</Text>
+      </View>
     );
   }
 
@@ -105,6 +81,7 @@ const styles = StyleSheet.create({
   },
   revisionsContainer: {
     width: "100%",
+    maxHeight: "50%",
     padding: 16,
   },
   separator: {
@@ -119,5 +96,16 @@ const styles = StyleSheet.create({
   revisionProgressPercentage: {
     fontSize: 40,
     fontWeight: "bold",
+  },
+  noItemsAlert: {
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+    borderColor: "#ccc",
+    borderRadius: 4,
+    borderWidth: 1,
+    backgroundColor: Colors.orangeA100,
   },
 });
