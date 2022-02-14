@@ -29,7 +29,11 @@ const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 function AuthNavigator() {
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen name="Login" component={LoginScreen} />
+      <AuthStack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
     </AuthStack.Navigator>
   );
 }

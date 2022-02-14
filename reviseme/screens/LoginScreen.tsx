@@ -1,16 +1,10 @@
-import { useContext, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { Button } from "react-native-paper";
+import { useState } from "react";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 import { useAuth } from "../contexts/auth";
 
 export default function LoginScreen() {
-  const { isAuthenticated, signIn } = useAuth();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -20,18 +14,26 @@ export default function LoginScreen() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <View>
+      <View style={styles.viewContainer}>
         <Text style={styles.title}>Login</Text>
         <TextInput
-          placeholder="Email"
+          style={styles.input}
+          label="Email"
           onChangeText={(text) => setEmail(text)}
+          autoComplete="email"
+          autoCapitalize="none"
         />
         <TextInput
-          placeholder="Password"
+          style={styles.input}
+          label="Password"
           onChangeText={(text) => setPassword(text)}
+          autoComplete="password"
+          autoCapitalize="none"
           secureTextEntry
         />
-        <Button onPress={handleLogin}>Login</Button>
+        <Button mode="contained" onPress={handleLogin}>
+          Login
+        </Button>
       </View>
     </KeyboardAvoidingView>
   );
@@ -43,8 +45,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  viewContainer: {
+    width: "80%",
+  },
   title: {
-    fontSize: 20,
+    fontSize: 40,
     fontWeight: "bold",
+    marginBottom: 40,
+    textAlign: "center",
+  },
+  input: {
+    marginBottom: 25,
   },
 });

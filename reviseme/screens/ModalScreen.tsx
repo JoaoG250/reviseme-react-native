@@ -1,17 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "react-native-paper";
 
-import EditScreenInfo from "../components/EditScreenInfo";
+import { useAuth } from "../contexts/auth";
 
 export default function ModalScreen() {
+  const { signOut } = useAuth();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
       <View style={styles.separator} />
-      <EditScreenInfo path="/screens/ModalScreen.tsx" />
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      <Button mode="contained" onPress={signOut}>
+        Logout
+      </Button>
     </View>
   );
 }
