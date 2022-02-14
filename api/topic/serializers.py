@@ -1,9 +1,12 @@
 from rest_framework import serializers
 
 from topic.models import Topic, TopicFile, TopicLink, TopicRevision
+from subject.serializers import SubjectSerializer
 
 
 class TopicSerializer(serializers.ModelSerializer):
+    subject = SubjectSerializer(read_only=True)
+
     class Meta:
         model = Topic
         fields = "__all__"

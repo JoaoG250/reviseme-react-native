@@ -14,3 +14,10 @@ export async function getSubjects(queryParams?: {
 export async function getSubject(id: number) {
   return api.get<Subject>(`subjects/${id}/`);
 }
+
+// Get subject revision progress
+export async function getSubjectRevisionProgress(subjectId: number) {
+  return api.get<{ progress: number }>(
+    `subjects/${subjectId}/revision_progress/`
+  );
+}
