@@ -8,8 +8,11 @@ import { Topic } from "../../interfaces/Topic";
 import { getTopics } from "../../services/topic";
 import baseStyle from "../../styles/base";
 import listStyle from "../../styles/list";
+import { SubjectTabScreenProps } from "../../types";
 
-export default function SubjectTopicTabScreen() {
+export default function SubjectTopicTabScreen({
+  navigation,
+}: SubjectTabScreenProps<"SubjectTopicTab">) {
   const { subject } = useSubject();
   const [topics, setTopics] = useState<Topic[]>([]);
 
@@ -34,7 +37,7 @@ export default function SubjectTopicTabScreen() {
     return (
       <Pressable
         onPress={() => {
-          console.log("Topic id:", item.id);
+          navigation.navigate("Topic", { topicId: item.id });
         }}
       >
         <Card

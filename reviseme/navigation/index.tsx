@@ -37,6 +37,9 @@ const linking: LinkingOptions<RootStackParamList> = {
       Subject: {
         path: "subjects/:subjectId",
       },
+      Topic: {
+        path: "topics/:topicId",
+      },
       Modal: "modal",
       NotFound: "*",
     },

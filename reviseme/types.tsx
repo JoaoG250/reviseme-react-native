@@ -27,6 +27,9 @@ export type RootStackParamList = {
   Subject: {
     subjectId: number;
   };
+  Topic: {
+    topicId: number;
+  };
   Modal: undefined;
   NotFound: undefined;
 };
@@ -42,12 +45,19 @@ export type SubjectTabParamList = {
   SubjectRevisionHistoryTab: undefined;
 };
 
+export type TopicTabParamList = {
+  TopicTab: undefined;
+};
+
 // Stack Screen Props
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type SubjectStackScreenProps<Screen extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, Screen>;
+
+export type TopicStackScreenProps<Screen extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, Screen>;
 
 // Tab Screen Props
@@ -61,5 +71,11 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 export type SubjectTabScreenProps<Screen extends keyof SubjectTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<SubjectTabParamList, Screen>,
+    NativeStackScreenProps<RootStackParamList>
+  >;
+
+export type TopicTabScreenProps<Screen extends keyof TopicTabParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<TopicTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >;

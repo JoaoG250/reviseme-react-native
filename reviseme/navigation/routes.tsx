@@ -5,6 +5,7 @@ import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import RootBottomTabNavigator from "./root/RootBottomTabNavigator";
 import SubjectBottomTabNavigator from "./subject/SubjectBottomTabNavigator";
+import TopicBottomTabNavigator from "./topic/TopicBottomTabNavigation";
 import { AuthStackParamList, RootStackParamList } from "../types";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAuth } from "../contexts/auth";
@@ -51,6 +52,11 @@ function RootNavigator() {
       <RootStack.Screen
         name="Subject"
         component={SubjectBottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <RootStack.Screen
+        name="Topic"
+        component={TopicBottomTabNavigator}
         options={{ headerShown: false }}
       />
       <RootStack.Screen

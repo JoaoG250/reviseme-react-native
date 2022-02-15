@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, ProgressBar } from "react-native-paper";
 import { TopicRevision } from "../../interfaces/Topic";
 import {
@@ -10,8 +10,11 @@ import {
 import baseStyle from "../../styles/base";
 import listStyle from "../../styles/list";
 import progressStyle from "../../styles/progress";
+import { RootTabScreenProps } from "../../types";
 
-export default function TopicRevisionsTabScreen() {
+export default function TopicRevisionsTabScreen({
+  navigation,
+}: RootTabScreenProps<"TopicRevisionsTab">) {
   const [topicRevisions, setTopicRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
 
@@ -35,17 +38,25 @@ export default function TopicRevisionsTabScreen() {
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {
     return (
-      <Card
-        style={{
-          marginBottom: 10,
+      <Pressable
+        onPress={() => {
+          navigation.navigate("Topic", { topicId: item.topic.id });
         }}
       >
-        <Card.Title
-          title={item.topic.name}
-          subtitle={item.topic.subject.name}
-          right={(props) => <Checkbox {...props} status="unchecked" disabled />}
-        />
-      </Card>
+        <Card
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Card.Title
+            title={item.topic.name}
+            subtitle={item.topic.subject.name}
+            right={(props) => (
+              <Checkbox {...props} status="unchecked" disabled />
+            )}
+          />
+        </Card>
+      </Pressable>
     );
   }
 

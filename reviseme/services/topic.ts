@@ -16,6 +16,11 @@ interface TopicRevisionsQueryParams {
   completed?: boolean;
 }
 
+// Get topic
+export async function getTopic(topicId: number) {
+  return api.get<Topic>(`/topics/${topicId}/`);
+}
+
 // Get all topics
 export async function getTopics(queryParams: TopicsQueryParams) {
   return api.get<Topic[]>("topics/", {

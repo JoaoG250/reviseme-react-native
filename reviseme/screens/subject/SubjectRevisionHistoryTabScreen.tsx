@@ -1,6 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { Card, Checkbox, ProgressBar } from "react-native-paper";
 import { useSubject } from "../../contexts/subject";
 import { Subject } from "../../interfaces/Subject";
@@ -10,9 +10,12 @@ import { getTopicRevisions } from "../../services/topic";
 import baseStyle from "../../styles/base";
 import listStyle from "../../styles/list";
 import progressStyle from "../../styles/progress";
+import { SubjectTabScreenProps } from "../../types";
 import { formatDate } from "../../utils/formatters";
 
-export default function SubjectRevisionHistoryTabScreen() {
+export default function SubjectRevisionHistoryTabScreen({
+  navigation,
+}: SubjectTabScreenProps<"SubjectRevisionHistoryTab">) {
   const { subject } = useSubject();
   const [revisions, setRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
@@ -48,23 +51,29 @@ export default function SubjectRevisionHistoryTabScreen() {
 
   function renderTopicRevision({ item }: { item: TopicRevision }) {
     return (
-      <Card
-        style={{
-          marginBottom: 10,
+      <Pressable
+        onPress={() => {
+          navigation.navigate("Topic", { topicId: item.topic.id });
         }}
       >
-        <Card.Title
-          title={item.topic.name}
-          subtitle={formatDate(item.updatedAt)}
-          right={(props) => (
-            <Checkbox
-              {...props}
-              status={item.complete ? "checked" : "unchecked"}
-              disabled
-            />
-          )}
-        />
-      </Card>
+        <Card
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Card.Title
+            title={item.topic.name}
+            subtitle={formatDate(item.updatedAt)}
+            right={(props) => (
+              <Checkbox
+                {...props}
+                status={item.complete ? "checked" : "unchecked"}
+                disabled
+              />
+            )}
+          />
+        </Card>
+      </Pressable>
     );
   }
 
