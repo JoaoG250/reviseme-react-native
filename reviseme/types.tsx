@@ -41,8 +41,8 @@ export type RootTabParamList = {
 };
 
 export type SubjectTabParamList = {
-  SubjectTopicTab: undefined;
-  SubjectRevisionHistoryTab: undefined;
+  SubjectTopicsTab: undefined;
+  SubjectRevisionsTab: undefined;
 };
 
 export type TopicTabParamList = {

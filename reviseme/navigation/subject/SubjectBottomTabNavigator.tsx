@@ -4,8 +4,8 @@ import * as React from "react";
 
 import { Colors } from "react-native-paper";
 import { SubjectProvider } from "../../contexts/subject";
-import SubjectRevisionHistoryTabScreen from "../../screens/subject/SubjectRevisionHistoryTabScreen";
-import SubjectTopicTabScreen from "../../screens/subject/SubjectTopicTabScreen";
+import SubjectRevisionsTabScreen from "../../screens/subject/SubjectRevisionsTabScreen";
+import SubjectTopicsTabScreen from "../../screens/subject/SubjectTopicsTabScreen";
 import { SubjectStackScreenProps, SubjectTabParamList } from "../../types";
 
 const BottomTab = createBottomTabNavigator<SubjectTabParamList>();
@@ -16,28 +16,28 @@ export default function SubjectBottomTabNavigator({
   return (
     <SubjectProvider subjectId={route.params.subjectId}>
       <BottomTab.Navigator
-        initialRouteName="SubjectTopicTab"
+        initialRouteName="SubjectRevisionsTab"
         screenOptions={{
           tabBarActiveTintColor: Colors.deepPurpleA700,
         }}
       >
         <BottomTab.Screen
-          name="SubjectTopicTab"
-          component={SubjectTopicTabScreen}
+          name="SubjectRevisionsTab"
+          component={SubjectRevisionsTabScreen}
           options={{
-            title: "Subject Topics",
+            title: "Subject Revisions",
             tabBarIcon: ({ color }) => (
-              <TabBarIcon name="paste" color={color} />
+              <TabBarIcon name="calendar-check-o" color={color} />
             ),
           }}
         />
         <BottomTab.Screen
-          name="SubjectRevisionHistoryTab"
-          component={SubjectRevisionHistoryTabScreen}
+          name="SubjectTopicsTab"
+          component={SubjectTopicsTabScreen}
           options={{
-            title: "Topic History",
+            title: "Subject Topics",
             tabBarIcon: ({ color }) => (
-              <TabBarIcon name="history" color={color} />
+              <TabBarIcon name="paste" color={color} />
             ),
           }}
         />

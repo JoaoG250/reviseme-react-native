@@ -13,9 +13,9 @@ import progressStyle from "../../styles/progress";
 import { SubjectTabScreenProps } from "../../types";
 import { formatDate } from "../../utils/formatters";
 
-export default function SubjectRevisionHistoryTabScreen({
+export default function SubjectRevisionsTabScreen({
   navigation,
-}: SubjectTabScreenProps<"SubjectRevisionHistoryTab">) {
+}: SubjectTabScreenProps<"SubjectRevisionsTab">) {
   const { subject } = useSubject();
   const [revisions, setRevisions] = useState<TopicRevision[]>([]);
   const [revisionProgress, setRevisionProgress] = useState<number>(0);
@@ -80,7 +80,7 @@ export default function SubjectRevisionHistoryTabScreen({
   if (revisions.length === 0) {
     return (
       <View style={baseStyle.container}>
-        <Text style={listStyle.noItemsAlert}>No revision history</Text>
+        <Text style={listStyle.noItemsAlert}>No revisions</Text>
       </View>
     );
   }
@@ -88,7 +88,7 @@ export default function SubjectRevisionHistoryTabScreen({
   return (
     <View style={baseStyle.container}>
       <Text style={baseStyle.title}>Revisions</Text>
-      <View style={styles.historyContainer}>
+      <View style={styles.revisionsContainer}>
         <FlatList
           data={revisions}
           renderItem={renderTopicRevision}
@@ -108,7 +108,7 @@ export default function SubjectRevisionHistoryTabScreen({
 }
 
 const styles = StyleSheet.create({
-  historyContainer: {
+  revisionsContainer: {
     width: "100%",
     maxHeight: "50%",
     padding: 16,

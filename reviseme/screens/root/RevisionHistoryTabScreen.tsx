@@ -8,7 +8,7 @@ import baseStyle from "../../styles/base";
 import listStyle from "../../styles/list";
 import { formatDate } from "../../utils/formatters";
 
-export default function HistoryTabScreen() {
+export default function RevisionHistoryTabScreen() {
   const [topicRevisionsHistory, setTopicRevisionsHistory] = useState<
     TopicRevision[]
   >([]);

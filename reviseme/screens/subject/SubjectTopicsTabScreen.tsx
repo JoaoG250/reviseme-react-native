@@ -10,9 +10,9 @@ import baseStyle from "../../styles/base";
 import listStyle from "../../styles/list";
 import { SubjectTabScreenProps } from "../../types";
 
-export default function SubjectTopicTabScreen({
+export default function SubjectTopicsTabScreen({
   navigation,
-}: SubjectTabScreenProps<"SubjectTopicTab">) {
+}: SubjectTabScreenProps<"SubjectTopicsTab">) {
   const { subject } = useSubject();
   const [topics, setTopics] = useState<Topic[]>([]);
 
