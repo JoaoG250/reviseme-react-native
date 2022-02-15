@@ -67,7 +67,16 @@ export default function SubjectTopicsTabScreen({
   if (topics.length === 0) {
     return (
       <View style={baseStyle.container}>
+        {subject && (
+          <CreateTopicDialog
+            subject={subject}
+            visible={dialogVisible}
+            hideDialog={hideDialog}
+            confirmAction={fetchTopics}
+          />
+        )}
         <Text style={listStyle.noItemsAlert}>No subject topics</Text>
+        <FAB style={styles.fab} icon="plus" onPress={showDialog} />
       </View>
     );
   }

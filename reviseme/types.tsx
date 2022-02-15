@@ -47,6 +47,7 @@ export type SubjectTabParamList = {
 
 export type TopicTabParamList = {
   TopicTab: undefined;
+  CreateTopicMaterialTab: undefined;
 };
 
 // Stack Screen Props

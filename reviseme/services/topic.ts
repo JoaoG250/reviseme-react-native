@@ -1,5 +1,5 @@
-import api from "../api";
-import { Topic, TopicRevision } from "../interfaces/Topic";
+import api, { sendForm } from "../api";
+import { Topic, TopicFileType, TopicRevision } from "../interfaces/Topic";
 
 type topicRevisionPhase = "1D" | "7D" | "30D" | "90D";
 
@@ -21,6 +21,18 @@ export interface CreateTopicInput {
   subject: number;
   name: string;
   description: string;
+}
+
+export interface ImageFile {
+  uri: string;
+  name: string;
+  type: string;
+}
+
+export interface CreateTopicFileInput {
+  topic: number;
+  file: ImageFile;
+  fileType: TopicFileType;
 }
 
 // Get topic
@@ -81,4 +93,9 @@ export async function completeTopicRevision(topicId: number) {
 // Create topic
 export async function createTopic(data: CreateTopicInput) {
   return api.post<Topic>("topics/", data);
+}
+
+// Create topic file
+export async function createTopicFile(data: CreateTopicFileInput) {
+  return sendForm("topic-files/", data);
 }

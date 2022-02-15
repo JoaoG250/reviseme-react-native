@@ -1,8 +1,10 @@
 import axios from "axios";
 import AsyncStorageLib from "@react-native-async-storage/async-storage";
 
+const apiBaseURL = "http://192.168.0.100:8000/api/";
+
 const api = axios.create({
-  baseURL: "http://192.168.0.100:8000/api/",
+  baseURL: apiBaseURL,
 });
 
 api.interceptors.request.use(async (config) => {
@@ -19,22 +21,27 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
-type HttpMethod = "get" | "post" | "put" | "delete" | "patch";
 type ObjectData = {
   [key: string]: any;
 };
 
-export async function sendForm(
-  method: HttpMethod,
-  endpoint: string,
-  data: ObjectData
-) {
+export async function sendForm(endpoint: string, data: ObjectData) {
+  const token = await AsyncStorageLib.getItem("@reviseme:token");
+
+  if (!token) {
+    throw new Error("No token found");
+  }
+
   const formData = new FormData();
   for (let key in data) {
     formData.append(key, data[key]);
   }
-  return api[method](endpoint, formData, {
+
+  return fetch(apiBaseURL + endpoint, {
+    method: "POST",
+    body: formData,
     headers: {
+      Authorization: `Token ${token}`,
       "Content-Type": "multipart/form-data",
     },
   });

@@ -38,3 +38,9 @@ export interface TopicRevision {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface TopicFile {
+  topic: Topic;
+  file: string;
+  fileType: TopicFileType;
+}

@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { Colors } from "react-native-paper";
 import { TopicProvider } from "../../contexts/topic";
+import CreateTopicMaterialScreen from "../../screens/topic/CreateTopicMaterialScreen";
 import TopicTabScreen from "../../screens/topic/TopicTabScreen";
 import { TopicStackScreenProps, TopicTabParamList } from "../../types";
 
@@ -28,6 +29,14 @@ export default function TopicBottomTabNavigator({
             tabBarIcon: ({ color }) => (
               <TabBarIcon name="paste" color={color} />
             ),
+          }}
+        />
+        <BottomTab.Screen
+          name="CreateTopicMaterialTab"
+          component={CreateTopicMaterialScreen}
+          options={{
+            title: "Create Study Material",
+            tabBarIcon: ({ color }) => <TabBarIcon name="plus" color={color} />,
           }}
         />
       </BottomTab.Navigator>
