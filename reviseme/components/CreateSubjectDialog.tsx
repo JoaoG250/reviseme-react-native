@@ -3,17 +3,17 @@ import { useForm, Controller } from "react-hook-form";
 import { createSubject, createSubjectInput } from "../services/subject";
 import { StyleSheet } from "react-native";
 
-interface CreateSubjectModalProps {
+interface CreateSubjectDialogProps {
   visible: boolean;
   hideDialog: () => void;
   confirmAction?: () => void;
 }
 
-export default function CreateSubjectModal({
+export default function CreateSubjectDialog({
   visible,
   hideDialog,
   confirmAction,
-}: CreateSubjectModalProps) {
+}: CreateSubjectDialogProps) {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",

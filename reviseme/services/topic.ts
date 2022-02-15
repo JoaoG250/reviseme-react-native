@@ -28,6 +28,11 @@ export async function getTopics(queryParams: TopicsQueryParams) {
   });
 }
 
+// Get topic revision
+export async function getTopicRevision(topicRevisionId: number) {
+  return api.get<TopicRevision>(`/topic-revisions/${topicRevisionId}/`);
+}
+
 // Get all topic revisions
 export async function getTopicRevisions(
   queryParams: TopicRevisionsQueryParams
@@ -59,4 +64,9 @@ export async function getDailyTopicRevisions() {
 // Get topic revisions progress
 export async function getTopicRevisionsProgress() {
   return api.get<{ progress: number }>("topics/revision_progress/");
+}
+
+// Complete topic revision
+export async function completeTopicRevision(topicId: number) {
+  return api.get<TopicRevision>(`topics/${topicId}/complete_revision/`);
 }
