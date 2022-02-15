@@ -38,8 +38,11 @@ class TopicViewSet(viewsets.ModelViewSet):
         completed_count = TopicRevision.objects.filter(
             topic__subject__user=request.user, complete=True
         ).count()
-        progress = completed_count / revision_count * 100
-        return Response({"progress": progress})
+        try:
+            progress = completed_count / revision_count * 100
+            return Response({"progress": progress})
+        except ZeroDivisionError:
+            return Response({"progress": 0})
 
 
 class TopicFileViewSet(viewsets.ModelViewSet):
