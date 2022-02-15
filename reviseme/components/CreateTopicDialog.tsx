@@ -1,28 +1,32 @@
 import { Button, Dialog, Portal, TextInput } from "react-native-paper";
 import { useForm, Controller } from "react-hook-form";
-import { createSubject, CreateSubjectInput } from "../services/subject";
 import { StyleSheet } from "react-native";
+import { createTopic, CreateTopicInput } from "../services/topic";
+import { Subject } from "../interfaces/Subject";
 
-interface CreateSubjectDialogProps {
+interface CreateTopicDialogProps {
+  subject: Subject;
   visible: boolean;
   hideDialog: () => void;
   confirmAction?: () => void;
 }
 
-export default function CreateSubjectDialog({
+export default function CreateTopicDialog({
+  subject,
   visible,
   hideDialog,
   confirmAction,
-}: CreateSubjectDialogProps) {
+}: CreateTopicDialogProps) {
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
+      subject: subject.id,
       name: "",
       description: "",
     },
   });
 
-  async function onSubmit(data: CreateSubjectInput) {
-    await createSubject(data);
+  async function onSubmit(data: CreateTopicInput) {
+    await createTopic(data);
     reset();
 
     // Execute the confirm action if it exists
@@ -36,7 +40,7 @@ export default function CreateSubjectDialog({
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog}>
-        <Dialog.Title>Create Subject</Dialog.Title>
+        <Dialog.Title>Create Topic</Dialog.Title>
         <Dialog.Content>
           <Controller
             control={control}

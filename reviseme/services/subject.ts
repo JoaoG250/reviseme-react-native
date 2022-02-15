@@ -1,7 +1,7 @@
 import api from "../api";
 import { Subject } from "../interfaces/Subject";
 
-export interface createSubjectInput {
+export interface CreateSubjectInput {
   name: string;
   description: string;
 }
@@ -28,6 +28,6 @@ export async function getSubjectRevisionProgress(subjectId: number) {
 }
 
 // Create a subject
-export async function createSubject(data: createSubjectInput) {
+export async function createSubject(data: CreateSubjectInput) {
   return api.post<Subject>("subjects/", data);
 }

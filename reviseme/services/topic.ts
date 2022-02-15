@@ -7,6 +7,7 @@ interface TopicsQueryParams {
   subject?: number;
   active?: boolean;
 }
+
 interface TopicRevisionsQueryParams {
   subject?: number;
   topic?: number;
@@ -14,6 +15,12 @@ interface TopicRevisionsQueryParams {
   revision_date?: string;
   revision_date__lte?: string;
   completed?: boolean;
+}
+
+export interface CreateTopicInput {
+  subject: number;
+  name: string;
+  description: string;
 }
 
 // Get topic
@@ -69,4 +76,9 @@ export async function getTopicRevisionsProgress() {
 // Complete topic revision
 export async function completeTopicRevision(topicId: number) {
   return api.get<TopicRevision>(`topics/${topicId}/complete_revision/`);
+}
+
+// Create topic
+export async function createTopic(data: CreateTopicInput) {
+  return api.post<Topic>("topics/", data);
 }

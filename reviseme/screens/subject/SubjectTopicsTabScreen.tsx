@@ -2,8 +2,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { Avatar, Card, FAB } from "react-native-paper";
+import CreateTopicDialog from "../../components/CreateTopicDialog";
 import { useSubject } from "../../contexts/subject";
-import { Subject } from "../../interfaces/Subject";
 import { Topic } from "../../interfaces/Topic";
 import { getTopics } from "../../services/topic";
 import baseStyle from "../../styles/base";
@@ -15,22 +15,27 @@ export default function SubjectTopicsTabScreen({
 }: SubjectTabScreenProps<"SubjectTopicsTab">) {
   const { subject } = useSubject();
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [dialogVisible, setDialogVisible] = useState(false);
+
+  async function fetchTopics() {
+    if (!subject) return;
+
+    // Get subject topics
+    const topicsResponse = await getTopics({
+      subject: subject.id,
+    });
+    setTopics(topicsResponse.data);
+  }
 
   // Get subject on screen focus
   useFocusEffect(
     useCallback(() => {
-      async function fetchData(subject: Subject) {
-        // Get subject topics
-        const topicsResponse = await getTopics({
-          subject: subject.id,
-        });
-        setTopics(topicsResponse.data);
+      async function fetchData() {
+        await fetchTopics();
       }
 
-      if (subject) {
-        fetchData(subject);
-      }
-    }, [subject])
+      fetchData();
+    }, [])
   );
 
   function renderTopic({ item }: { item: Topic }) {
@@ -55,6 +60,10 @@ export default function SubjectTopicsTabScreen({
     );
   }
 
+  const showDialog = () => setDialogVisible(true);
+
+  const hideDialog = () => setDialogVisible(false);
+
   if (topics.length === 0) {
     return (
       <View style={baseStyle.container}>
@@ -65,6 +74,14 @@ export default function SubjectTopicsTabScreen({
 
   return (
     <View style={baseStyle.container}>
+      {subject && (
+        <CreateTopicDialog
+          subject={subject}
+          visible={dialogVisible}
+          hideDialog={hideDialog}
+          confirmAction={fetchTopics}
+        />
+      )}
       <View>
         <Text style={baseStyle.title}>{subject?.name}</Text>
       </View>
@@ -77,11 +94,7 @@ export default function SubjectTopicsTabScreen({
       </View>
 
       <View style={baseStyle.separator} />
-      <FAB
-        style={styles.fab}
-        icon="plus"
-        onPress={() => console.log("Pressed")}
-      />
+      <FAB style={styles.fab} icon="plus" onPress={showDialog} />
     </View>
   );
 }

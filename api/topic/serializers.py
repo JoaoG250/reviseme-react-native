@@ -5,6 +5,12 @@ from subject.serializers import SubjectSerializer
 
 
 class TopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = "__all__"
+
+
+class TopicDisplaySerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
 
     class Meta:

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from topic.filters import TopicFilter, TopicRevisionFilter
 from topic.models import Topic, TopicFile, TopicLink, TopicRevision
 from topic.serializers import (
+    TopicDisplaySerializer,
     TopicSerializer,
     TopicFileSerializer,
     TopicLinkSerializer,
@@ -20,6 +21,13 @@ class TopicViewSet(viewsets.ModelViewSet):
         return Topic.objects.filter(subject__user=self.request.user).order_by(
             "-updated_at"
         )
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TopicDisplaySerializer
+        elif self.action == "retrieve":
+            return TopicDisplaySerializer
+        return self.serializer_class
 
     @action(detail=True, methods=["get"])
     def complete_revision(self, request, pk=None):
