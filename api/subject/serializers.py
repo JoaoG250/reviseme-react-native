@@ -7,9 +7,9 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = "__all__"
-
-
-class CreateSubjectSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subject
-        fields = ["name", "description", "image"]
+        read_only_fields = (
+            "id",
+            "user",
+            "created_at",
+            "updated_at",
+        )

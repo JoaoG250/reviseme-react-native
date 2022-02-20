@@ -142,3 +142,7 @@ web-build/
 
 # macOS
 .DS_Store
+
+# Django media folder
+api/media/*
+!api/media/default/

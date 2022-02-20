@@ -24,14 +24,30 @@ class TopicFileSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class TopicFileDisplaySerializer(serializers.ModelSerializer):
+    topic = TopicDisplaySerializer(read_only=True)
+
+    class Meta:
+        model = TopicFile
+        fields = "__all__"
+
+
 class TopicLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = TopicLink
         fields = "__all__"
 
 
+class TopicLinkDisplaySerializer(serializers.ModelSerializer):
+    topic = TopicDisplaySerializer(read_only=True)
+
+    class Meta:
+        model = TopicLink
+        fields = "__all__"
+
+
 class TopicRevisionSerializer(serializers.ModelSerializer):
-    topic = TopicSerializer(read_only=True)
+    topic = TopicDisplaySerializer(read_only=True)
 
     class Meta:
         model = TopicRevision

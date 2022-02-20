@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 
-from topic.models import Topic, TopicRevision
+from topic.models import Topic, TopicFile, TopicLink, TopicRevision
 
 
 class TopicFilter(filters.FilterSet):
@@ -25,3 +25,15 @@ class TopicRevisionFilter(filters.FilterSet):
             "revision_date__lte",
             "complete",
         )
+
+
+class TopicFileFilter(filters.FilterSet):
+    class Meta:
+        model = TopicFile
+        fields = ("topic", "file_type")
+
+
+class TopicLinkFilter(filters.FilterSet):
+    class Meta:
+        model = TopicLink
+        fields = ("topic",)

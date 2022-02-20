@@ -84,15 +84,15 @@ class TopicFile(TimeStampedModel):
 
 class TopicLink(TimeStampedModel):
     topic = models.ForeignKey(to=Topic, on_delete=models.CASCADE, related_name="links")
+    title = models.CharField(max_length=255)
     url = models.URLField()
-    url_type = models.CharField(max_length=10, choices=CHOICES_TOPIC_FILE_TYPE)
 
     def __str__(self):
-        return f"{self.url_type} - {self.topic.name}"
+        return self.topic.name
 
 
 def revision_date_default_value():
-    return datetime.now() + timedelta(days=1)
+    return datetime.now()
 
 
 class TopicRevision(TimeStampedModel):
