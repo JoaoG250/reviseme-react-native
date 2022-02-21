@@ -150,4 +150,4 @@ class TopicRevisionViewSet(
     def get_queryset(self):
         return TopicRevision.objects.filter(
             topic__subject__user=self.request.user
-        ).order_by("-updated_at")
+        ).order_by("revision_date")
